@@ -1,6 +1,7 @@
+
 lambda/node_modules/
 lambda/package-lock.json
 lambda/local_index.js
-lambda/lambda.zip
+lambda/*.zip
 package-lock.json
 node_modules

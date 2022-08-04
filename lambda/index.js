@@ -55,7 +55,8 @@ export const handler = async (event) => {
     };
     const response = {
       "statusCode": 200,
-      "headers": { "x-custom-header": "result" },
+      "headers": { "Access-Control-Allow-Origin" : "*", 
+      "Access-Control-Allow-Credentials" : true },
       "body": JSON.stringify(body),
     };
     console.log(response);
