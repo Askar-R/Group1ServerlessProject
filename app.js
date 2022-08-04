@@ -1,5 +1,5 @@
 
-const response = await fetch("https://cgovdpwab9.execute-api.eu-north-1.amazonaws.com/testi/testi");
+const response = await fetch("https://cgovdpwab9.execute-api.eu-north-1.amazonaws.com/awkward");
 
 const data = await response.json();
 // muokkaa alla olevaa tulostetta sen mukaan millainen oman apin rakenne on 

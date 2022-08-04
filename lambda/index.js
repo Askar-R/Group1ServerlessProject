@@ -5,8 +5,6 @@ const docClient = new AWS.DynamoDB.DocumentClient({ region: "eu-north-1" });
 
 export const handler = async (event) => {
 
-  console.log("halojaaa");
-
   async function getFact() {
     const response = await fetch(
       "https://uselessfacts.jsph.pl/random.json?language=en"
@@ -22,7 +20,6 @@ export const handler = async (event) => {
   }
 
   async function getOne(mansikka) {
-    console.log("suoritetaan getOne");
 
     const params = {
       TableName: "socially-awkward",
@@ -40,8 +37,6 @@ export const handler = async (event) => {
   }
 
   try {
-    console.log("yritys 10000");
-
     let num = Math.floor(Math.random() * 7);
     let id = num.toString();
     let fact = await getFact();
@@ -59,16 +54,9 @@ export const handler = async (event) => {
       "Access-Control-Allow-Credentials" : true },
       "body": JSON.stringify(body),
     };
-    console.log(response);
     return response;
-    // console.log(response);
-    // console.log(
-    //   `fact: ${fact} \n excuse: ${excuse} \n reaction: ${data.Item.name}`
-    // );
+
   } catch (err) {
     return "error: ", err;
-    // console.log(err);
   }
 };
-
-handler();
