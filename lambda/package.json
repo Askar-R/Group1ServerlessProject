@@ -1,8 +1,8 @@
 {
-  "name": "serverlessproject",
+  "name": "viikko8",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
+    "aws-sdk": "^2.1188.0",
     "node-fetch": "^3.2.10"
   }
 }

@@ -1,0 +1,91 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Group 1 Serverless project
+
+Resources:
+  # IAM
+  LambdaPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: sociallyawkwardpolicy
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:Query
+              - dynamodb:BatchWriteItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+            Resource: arn:aws:dynamodb:eu-north-1:235920682125:table/socially-awkward
+      Roles:
+        - !Ref LambdaRole
+
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+      # Policies:
+      #   - !Ref LambdaPolicy
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  # Lambda
+  Lambda:
+    Type: AWS::Lambda::Function
+    DependsOn: LambdaPolicy
+    Properties:
+      Code:
+        S3Bucket: arn:aws:s3:::socially-awkward
+        S3Key: lambda.zip
+      FunctionName: socially-awkward-cw
+      Handler: index.handler
+      PackageType: Zip
+      Runtime: nodejs16.x
+      Role: !GetAtt LambdaRole.Arn
+
+  # API Gateway
+  APIGateway:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+      Description: Socially Awkward API
+      Name: socially-awkward-cw
+
+  GetMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      RestApiId: !Ref APIGateway
+      ResourceId: !GetAtt
+        - APIGateway
+        - RootResourceId
+      HttpMethod: GET
+      AuthorizationType: NONE
+      Integration:
+        Type: MOCK
+
+  # SNS
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      Subscription:
+        - Endpoint: emmi.lahtisalo@awacademy.training
+          Protocol: email
+        - Endpoint: youwillcopyandpastethisanyway@gmail.com
+          Protocol: email
+      TopicName: socially-awkward-api
+# Outputs:
+#   SNSTopicArn:
+#     Description: Arn of Created SNS Topic
+#     Value: !Ref SNSTopic
