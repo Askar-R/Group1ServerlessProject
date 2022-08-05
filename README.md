@@ -21,3 +21,5 @@ Links to the external APIs we used:
 * [Excuser API](https://excuser.herokuapp.com/)
 
 In the root folder you'll find a simple JS app that makes a call to our API. The app returns the result so that it can be used in the html. The app and html were then uploaded to an S3 bucket and published (temporarily) as a static HTML page that calls the Lambda throuh an API Gateway.
+
+![picture of the html page](https://github.com/Askar-R/Group1ServerlessProject/blob/367d75d4067f200088600e34db68fe7443c4e48c/layout.png?raw=true)
