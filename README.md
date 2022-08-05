@@ -1,7 +1,7 @@
 # Group 1 - Serverless Project
 *Week 8 project for AW Academy's AWS Developer Programme*
 
-###Requirements:
+### Requirements:
 
 * Use the following serverless AWS services:
   * Lambda
